@@ -5,4 +5,10 @@ fn main() {
         res.set_icon("res\\windows\\space-acres.ico");
         res.compile().unwrap();
     }
+
+    glib_build_tools::compile_resources::<&str>(
+        &["res"],
+        "res/resources.gresource.xml",
+        "prophesy.gresource",
+    );
 }

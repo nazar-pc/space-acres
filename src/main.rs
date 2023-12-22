@@ -195,7 +195,7 @@ impl AsyncComponent for App {
                 gtk::HeaderBar {
                     pack_end = &gtk::MenuButton {
                         set_direction: gtk::ArrowType::None,
-                        set_icon_name: icon_name::MENU_LARGE,
+                        set_icon_name: "about-icon",
                         #[wrap(Some)]
                         set_popover: menu_popover = &gtk::Popover {
                             set_halign: gtk::Align::End,
@@ -624,7 +624,14 @@ impl Cli {
         });
 
         app.set_global_css(GLOBAL_CSS);
-        relm4_icons::initialize_icons();
+        // relm4_icons::initialize_icons();
+        // // TODO: Hack for Windows, I have no explanation why ^ is not sufficient
+        // gtk::IconTheme::default().add_resource_path("/relm4/icons/");
+        gtk::gio::resources_register_include!("prophesy.gresource")
+            .expect("Failed to register resources.");
+        let icon_theme = gtk::IconTheme::default();
+        icon_theme.add_resource_path("/com/prophesy/icons");
+        assert!(icon_theme.has_icon("about-icon"));
 
         // Prefer dark theme in cross-platform way if environment is configured that way
         if let Some(settings) = gtk::Settings::default() {
