@@ -579,7 +579,8 @@ impl Cli {
                 });
             let filter = EnvFilter::builder()
                 .with_default_directive(LevelFilter::INFO.into())
-                .from_env_lossy();
+                .parse("info,subspace_farmer=trace,subspace_farmer_components=trace")
+                .unwrap();
             if WINDOWS_SUBSYSTEM_WINDOWS {
                 if let Some(app_data_dir) = &maybe_app_data_dir {
                     let logger = std::sync::Mutex::new(Self::new_logger(app_data_dir));
