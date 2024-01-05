@@ -1,4 +1,3 @@
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 #![feature(const_option, trait_alias, try_blocks)]
 
 mod backend;
@@ -43,7 +42,7 @@ const LOG_FILE_LIMIT_SIZE: usize = 1024 * 1024 * 10;
 const LOG_READ_BUFFER: usize = 1024 * 1024;
 /// If `true`, this means supervisor will not be able to capture logs from child application and logger needs to be in
 /// the child process itself, while supervisor will not attempt to read stdout/stderr at all
-const WINDOWS_SUBSYSTEM_WINDOWS: bool = cfg!(all(windows, not(debug_assertions)));
+const WINDOWS_SUBSYSTEM_WINDOWS: bool = false;
 
 #[derive(Debug, Copy, Clone)]
 enum AppStatusCode {
